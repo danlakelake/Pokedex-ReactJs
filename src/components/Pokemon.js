@@ -1,23 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import favoriteContext from "../contexts/favoriteContext";
+import PokemonInfo from "../components/PokemonPopUp";
 
 const Pokemon = (props) => {
+  const [info, setInfo] = useState(false);
   const { pokemon } = props;
-  const { favoritePokemons, updateFavoritePokemons } = useContext(
-    favoriteContext
-  );
+  const { favoritePokemons, updateFavoritePokemons } =
+    useContext(favoriteContext);
 
   const redHeart = "❤️";
   const blackHeart = "🖤";
   const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart;
+  console.log(info);
+  const clickCard = (e) => {
+    e.preventDefault();
+    setInfo(true);
+  };
 
   const clickHeart = (e) => {
     e.preventDefault();
+    heart == blackHeart
+      ? alert(`Agregaste ${pokemon.name} como favorito`)
+      : alert(`Eliminaste ${pokemon.name} como favorito`);
     updateFavoritePokemons(pokemon.name);
   };
 
   return (
-    <div className="pokemon-card">
+    <div onClick={clickCard} className="pokemon-card">
+      {info === true ? (
+        <PokemonInfo
+          pokemonName={pokemon}
+          pokemonImg={pokemon}
+          setInfo={setInfo}
+        />
+      ) : null}
       <div className="pokemon-img-container">
         <img
           src={pokemon.sprites.front_default}

@@ -12,8 +12,8 @@ const Searchbar = (props) => {
     }
   };
 
-  const onClick = async (e) => {
-    onSearch(search);
+  const onClick = async () => {
+    onSearch(search.toLowerCase());
   };
 
   return (
@@ -22,7 +22,7 @@ const Searchbar = (props) => {
         <input placeholder="Buscar pokemon..." onChange={onChange} />
       </div>
       <div className="searchbar-btn">
-        <button onClick={onClick}>Buscar</button>
+        <button onClick={onClick}>Buscar Pokemon</button>
       </div>
     </div>
   );
