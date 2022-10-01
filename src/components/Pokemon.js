@@ -31,7 +31,7 @@ const Pokemon = (props) => {
         <PokemonInfo
           pokemonName={pokemon}
           pokemonImg={pokemon}
-          setInfo={setInfo}
+          hideModal={setInfo}
         />
       ) : null}
       <div className="pokemon-img-container">

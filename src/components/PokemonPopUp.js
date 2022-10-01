@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PokemonInfo = (props) => {
-  const { pokemonName, pokemonImg, setInfo } = props;
-  console.log(props);
-  console.log(setInfo);
+  const { pokemonName, pokemonImg, hideModal } = props;
 
-  const clickHideModal = () => {
-    alert("hide modal");
-    setInfo(false);
+  const clickHideModal = (e) => {
+    e.preventDefault();
+    alert("you click hide modal");
+    hideModal(false);
   };
 
   return (
-    <div id="modal" className="pokemon-modalInfo" onClick={clickHideModal}>
+    <div
+      id="modal-background"
+      className="pokemon-modalInfo"
+      onClick={clickHideModal}
+    >
       <div className="pokemon-cardModal">
         <h3 className="pokemon-title">{pokemonName.name} Info</h3>
         <div className="pokemon-modal-img">
