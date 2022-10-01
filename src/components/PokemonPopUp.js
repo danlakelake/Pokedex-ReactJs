@@ -18,9 +18,7 @@ const PokemonInfo = (props) => {
         </div>
         <div className="pokemon-data">
           <div> Nombre: {pokemonName}</div>
-          <br />
-          <div> Peso: {pokemonWeight}</div>
-          <br />
+          <div> Peso: {pokemonWeight} Kg</div>
           <div>
             Habilidad:
             {pokemonAbility.map((item) => {
