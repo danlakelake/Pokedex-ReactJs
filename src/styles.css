@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
 
 :root{
   --main-white: white;
@@ -236,5 +236,5 @@ nav {
 
 .pokemon-data{
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: medium;
 }

@@ -17,10 +17,14 @@ const PokemonInfo = (props) => {
           <img src={pokemonImg} alt="img-pokemon" />
         </div>
         <div className="pokemon-data">
-          <div> Nombre: {pokemonName}</div>
-          <div> Peso: {pokemonWeight} Kg</div>
           <div>
-            Habilidad:
+            <b>Nombre:</b> {pokemonName}
+          </div>
+          <div>
+            <b>Peso:</b> {pokemonWeight} Kg
+          </div>
+          <div>
+            <b>Habilidad:</b>
             {pokemonAbility.map((item) => {
               console.log(item.ability);
               return <span> {item.ability.name},</span>;
