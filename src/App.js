@@ -81,7 +81,7 @@ export default function App() {
     <FavoriteProvider
       value={{
         favoritePokemons: favorites,
-        updateFavoritePokemons: updateFavoritePokemons
+        updateFavoritePokemons: updateFavoritePokemons,
       }}
     >
       <div>

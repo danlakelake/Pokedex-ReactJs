@@ -1,28 +1,34 @@
 import React from "react";
 
 const PokemonInfo = (props) => {
-  const { pokemonName, pokemonImg, hideModal } = props;
+  const { pokemonName, pokemonImg, pokemonWeight, pokemonAbility, setInfo } =
+    props;
 
-  const clickHideModal = (e) => {
-    e.preventDefault();
-    alert("you click hide modal");
-    hideModal(false);
+  const clickCard = (e) => {
+    e.stopPropagation();
+    setInfo(false);
   };
 
   return (
-    <div
-      id="modal-background"
-      className="pokemon-modalInfo"
-      onClick={clickHideModal}
-    >
+    <div className="pokemon-modalInfo" onClick={clickCard}>
       <div className="pokemon-cardModal">
-        <h3 className="pokemon-title">{pokemonName.name} Info</h3>
+        <h2 className="pokemon-title">{pokemonName} Info</h2>
         <div className="pokemon-modal-img">
-          <img src={pokemonImg.sprites.front_default} alt="img-pokemon" />
+          <img src={pokemonImg} alt="img-pokemon" />
         </div>
-        <span className="pokemon-data">
-          Nombre: {pokemonName.name.toUpperCase()}
-        </span>
+        <div className="pokemon-data">
+          <div> Nombre: {pokemonName}</div>
+          <br />
+          <div> Peso: {pokemonWeight}</div>
+          <br />
+          <div>
+            Habilidad:
+            {pokemonAbility.map((item) => {
+              console.log(item.ability);
+              return <span> {item.ability.name},</span>;
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

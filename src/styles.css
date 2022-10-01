@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins&display=swap');
 
 :root{
   --main-white: white;
@@ -10,7 +10,7 @@
 }
 
 .App {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
@@ -209,23 +209,28 @@ nav {
   background-color: var(--main-white);
   color: var(--main-black);
   width:300px;
-  height: 300px;
+  max-height: 400px;
   left:40%;
   top:30%;
   position: absolute;
   border-radius: 10px;
-  padding:10px;
+  padding:40px 30px 30px 30px;
   z-index:1;
 }
 
-
-.pokemon-cardModal h3{
+.pokemon-cardModal h2{
   text-transform: uppercase;
-  margin: 30px 20px 10px;
+}
+
+.pokemon-modal-img {
+  margin: 10px;
 }
 
 .pokemon-modal-img img{
   width: 50%;
+  border: 4px solid var(--main-yellow);
+  border-radius:100%;
+  padding:10px;
 }
 
 .pokemon-data{
