@@ -26,7 +26,6 @@ const PokemonInfo = (props) => {
           <div>
             <b>Habilidad:</b>
             {pokemonAbility.map((item) => {
-              console.log(item.ability);
               return <span> {item.ability.name},</span>;
             })}
           </div>

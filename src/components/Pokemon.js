@@ -12,8 +12,6 @@ const Pokemon = (props) => {
   const [pokemon_Ability, setPokemonAbility] = useState("");
 
   const { pokemon } = props;
-  console.log(props);
-
   const { favoritePokemons, updateFavoritePokemons } =
     useContext(favoriteContext);
 
