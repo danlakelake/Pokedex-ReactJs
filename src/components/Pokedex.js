@@ -1,9 +1,9 @@
-import React from "react";
-import Pagination from "./Pagination";
-import Pokemon from "./Pokemon";
+import React from 'react';
+import Pagination from './Pagination';
+import Pokemon from './Pokemon';
 
 const Pokedex = (props) => {
-  const { pokemons, page, setPage, total, loading, pokemonName } = props;
+  const { pokemons, page, setPage, total, loading } = props;
 
   const lastPage = () => {
     const nextPage = Math.max(page - 1, 0);
@@ -30,8 +30,8 @@ const Pokedex = (props) => {
         <div>Cargando pokemones...</div>
       ) : (
         <div className="pokedex-grid">
-          {pokemons.map((pokemon, index) => {
-            return <Pokemon pokemon={pokemon} key={pokemonName} />;
+          {pokemons.map((pokemon) => {
+            return <Pokemon pokemon={pokemon} key={pokemon.name} />;
           })}
         </div>
       )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const PokemonInfo = (props) => {
   const { pokemonName, pokemonImg, pokemonWeight, pokemonAbility, setInfo } =
@@ -26,7 +26,7 @@ const PokemonInfo = (props) => {
           <div>
             <b>Habilidad:</b>
             {pokemonAbility.map((item) => {
-              return <span> {item.ability.name},</span>;
+              return <span key={item.ability.name}> {item.ability.name},</span>;
             })}
           </div>
         </div>

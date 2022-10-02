@@ -1,22 +1,22 @@
-import React, { useContext, useState, useEffect } from "react";
-import favoriteContext from "../contexts/favoriteContext";
-import PokemonInfo from "../components/PokemonPopUp";
-import { getPokemonResources } from "../api";
+import React, { useContext, useState, useEffect } from 'react';
+import favoriteContext from '../contexts/favoriteContext';
+import PokemonInfo from '../components/PokemonPopUp';
+import { getPokemonResources } from '../api';
 
 const Pokemon = (props) => {
   const [info, setInfo] = useState(false);
-  const [pokemon_Name, setPokemonName] = useState("");
-  const [pokemon_Id, setPokemonId] = useState("");
-  const [pokemon_Img, setPokemonImg] = useState("");
-  const [pokemon_Weight, setPokemonWeight] = useState("");
-  const [pokemon_Ability, setPokemonAbility] = useState("");
+  const [pokemon_Name, setPokemonName] = useState('');
+  const [pokemon_Id, setPokemonId] = useState('');
+  const [pokemon_Img, setPokemonImg] = useState('');
+  const [pokemon_Weight, setPokemonWeight] = useState('');
+  const [pokemon_Ability, setPokemonAbility] = useState('');
 
   const { pokemon } = props;
   const { favoritePokemons, updateFavoritePokemons } =
     useContext(favoriteContext);
 
-  const redHeart = "❤️";
-  const blackHeart = "🖤";
+  const redHeart = '❤️';
+  const blackHeart = '🖤';
   const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart;
 
   useEffect(() => {

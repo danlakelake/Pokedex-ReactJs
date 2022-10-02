@@ -1,5 +1,5 @@
-import React from "react";
-import favoriteContext from "../contexts/favoriteContext";
+import React from 'react';
+import favoriteContext from '../contexts/favoriteContext';
 
 const { useContext } = React;
 
@@ -7,7 +7,7 @@ const Navbar = () => {
   const { favoritePokemons } = useContext(favoriteContext);
 
   let imgUrl =
-    "https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png";
+    'https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png';
 
   return (
     <nav>
