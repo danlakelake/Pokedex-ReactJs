@@ -29,10 +29,6 @@ export const getPokemonResources = async (pokemon) => {
     let url = `https://pokeapi.co/api/v2/item/${pokemon}/`;
     const response = await fetch(url);
     const data = await response.json();
-    data.effect_entries.map((res) => {
-      let effect_res = res.effect;
-      console.log(effect_res);
-    });
-    return effect_res;
+    return data;
   } catch (err) {}
 };
