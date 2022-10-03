@@ -1,13 +1,14 @@
-import React from 'react';
-import './styles.css';
-import Navbar from './components/Navbar';
-import Searchbar from './components/Searchbar';
-import Pokedex from './components/Pokedex';
-import { getPokemonData, getPokemons, searchPokemon } from './api';
-import { FavoriteProvider } from './contexts/favoriteContext';
+import React from "react";
+import "./styles.css";
+import Navbar from "./components/Navbar";
+import Searchbar from "./components/Searchbar";
+import Pokedex from "./components/Pokedex";
+import { getPokemonData, getPokemons, searchPokemon } from "./api";
+import { FavoriteProvider } from "./contexts/favoriteContext";
+import LoginForm from "./components/LoginForm";
 const { useState, useEffect } = React;
 
-const localStorageKey = 'favorite_pokemon';
+const localStorageKey = "favorite_pokemon";
 
 export default function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -78,29 +79,34 @@ export default function App() {
   };
 
   return (
-    <FavoriteProvider
-      value={{
-        favoritePokemons: favorites,
-        updateFavoritePokemons: updateFavoritePokemons,
-      }}
-    >
-      <div>
-        <Navbar />
-        <div className="App">
-          <Searchbar onSearch={onSearch} />
-          {notFound ? (
-            <div className="notfound-text">No se encontraron resultados...</div>
-          ) : (
-            <Pokedex
-              loading={loading}
-              pokemons={pokemons}
-              page={page}
-              setPage={setPage}
-              total={total}
-            />
-          )}
+    <div>
+      <LoginForm />
+      <FavoriteProvider
+        value={{
+          favoritePokemons: favorites,
+          updateFavoritePokemons: updateFavoritePokemons,
+        }}
+      >
+        <div>
+          <Navbar />
+          <div className="App">
+            <Searchbar onSearch={onSearch} />
+            {notFound ? (
+              <div className="notfound-text">
+                No se encontraron resultados...
+              </div>
+            ) : (
+              <Pokedex
+                loading={loading}
+                pokemons={pokemons}
+                page={page}
+                setPage={setPage}
+                total={total}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </FavoriteProvider>
+      </FavoriteProvider>
+    </div>
   );
 }
