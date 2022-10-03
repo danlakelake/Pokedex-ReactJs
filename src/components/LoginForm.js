@@ -1,13 +1,19 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faLock,
   faEye,
   faEyeSlash,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 const LoginForm = () => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const showHidePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <div class="loginForm-container">
       <form id="form" class="form">
@@ -26,10 +32,16 @@ const LoginForm = () => {
             Password
           </label>
           <div>
-            {}
-            <input type="password" id="password" placeholder="Enter password" />
-            <FontAwesomeIcon icon={faEye} />
-            <FontAwesomeIcon icon={faEyeSlash} />
+            <input
+              type={passwordShown ? 'text' : 'password'}
+              id="password"
+              placeholder="Enter password"
+            />
+            {passwordShown ? (
+              <FontAwesomeIcon icon={faEye} onClick={showHidePassword} />
+            ) : (
+              <FontAwesomeIcon icon={faEyeSlash} onClick={showHidePassword} />
+            )}
           </div>
           <small>Error message</small>
         </div>
