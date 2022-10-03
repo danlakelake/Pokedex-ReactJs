@@ -1,13 +1,13 @@
-import React from "react";
-import "./styles.css";
-import Navbar from "./components/Navbar";
-import Searchbar from "./components/Searchbar";
-import Pokedex from "./components/Pokedex";
-import { getPokemonData, getPokemons, searchPokemon } from "./api";
-import { FavoriteProvider } from "./contexts/favoriteContext";
+import React from 'react';
+import './styles.css';
+import Navbar from './components/Navbar';
+import Searchbar from './components/Searchbar';
+import Pokedex from './components/Pokedex';
+import { getPokemonData, getPokemons, searchPokemon } from './api';
+import { FavoriteProvider } from './contexts/favoriteContext';
 const { useState, useEffect } = React;
 
-const localStorageKey = "favorite_pokemon";
+const localStorageKey = 'favorite_pokemon';
 
 export default function App() {
   const [pokemons, setPokemons] = useState([]);

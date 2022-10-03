@@ -30,7 +30,7 @@ const Pokemon = (props) => {
   const clickCard = (e) => {
     e.stopPropagation();
     setInfo(true);
-    getPokemonResources();
+    getPokemonResources(pokemon_Id);
   };
 
   const clickHeart = (e) => {

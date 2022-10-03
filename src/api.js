@@ -24,12 +24,15 @@ export const getPokemonData = async (url) => {
   } catch (err) {}
 };
 
-export const getPokemonResources = async (url) => {
+export const getPokemonResources = async (pokemon) => {
   try {
-    let url = "https://pokeapi.co/api/v2/ability/battle-armor";
+    let url = `https://pokeapi.co/api/v2/item/${pokemon}/`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
-    return data;
+    data.effect_entries.map((res) => {
+      let effect_res = res.effect;
+      console.log(effect_res);
+    });
+    return effect_res;
   } catch (err) {}
 };
