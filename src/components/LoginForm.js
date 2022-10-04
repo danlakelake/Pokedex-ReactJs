@@ -9,9 +9,17 @@ import {
 
 const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [error, setError] = useState(null);
 
   const showHidePassword = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  const handleChange = (e) => {
+    const val = e.target.value;
+    console.log(val);
   };
 
   return (
@@ -23,7 +31,13 @@ const LoginForm = () => {
             <FontAwesomeIcon icon={faUser} />
             Username
           </label>
-          <input type="text" id="username" placeholder="Enter username" />
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter username"
+            value={name}
+            onChange={handleChange}
+          />
           <small>Error message</small>
         </div>
         <div class="form-control">
@@ -36,6 +50,8 @@ const LoginForm = () => {
               type={passwordShown ? 'text' : 'password'}
               id="password"
               placeholder="Enter password"
+              value={password}
+              onChange={handleChange}
             />
             {passwordShown ? (
               <FontAwesomeIcon icon={faEye} onClick={showHidePassword} />
