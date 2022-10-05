@@ -13,7 +13,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
-  const [errorGral, setErrorGral] = useState("");
 
   const showHidePassword = () => {
     setPasswordShown(!passwordShown);
@@ -102,7 +101,6 @@ const LoginForm = () => {
           </div>
           <span>{errorPassword}</span>
         </div>
-        <span>{errorGral}</span>
         <button onClick={onSubmit}>Submit</button>
       </form>
     </div>
