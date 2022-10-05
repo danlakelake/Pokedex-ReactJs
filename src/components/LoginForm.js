@@ -1,26 +1,63 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faLock,
   faEye,
   faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
 const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const [name, setName] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [error, setError] = useState(null);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [errorGral, setErrorGral] = useState("");
 
   const showHidePassword = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const handleChange = (e) => {
-    const val = e.target.value;
-    console.log(val);
+  const onSubmit = (e) => {
+    e.preventDefault();
   };
+
+  useEffect(() => {
+    let nameRegex = /^[a-zA-Z]{5,}/i;
+    let input_username = document.getElementById("username");
+    let icon_username = document.getElementById("user-icon");
+
+    let input_password = document.getElementById("password");
+    let icon_password = document.getElementById("password-icon");
+
+    //Validation Name
+    if (nameRegex.test(name.trim())) {
+      setErrorName("");
+      input_username.style.border = "2px solid lime";
+      icon_username.style.color = "lime";
+    } else if (name.length == 1) {
+      setErrorName("el nombre debe contener mas de 5 caracteres");
+      input_username.style.border = "2px solid red";
+      icon_username.style.color = "red";
+    } else if (name.length == 0 || name == null || name === "") {
+      setErrorName("");
+    }
+
+    //Validation Password
+    if (nameRegex.test(password.trim())) {
+      setErrorPassword("");
+      input_password.style.border = "2px solid lime";
+      icon_password.style.color = "lime";
+    } else if (password.length == 1) {
+      setErrorPassword("el password debe contener mas de 5 caracteres");
+      input_password.style.border = "2px solid red";
+      icon_password.style.color = "red";
+    } else if (password.length == 0 || password == null || password === "") {
+      setErrorPassword("");
+      input_password.style.border = "2px solid red";
+    }
+  }, [name, password]);
 
   return (
     <div class="loginForm-container">
@@ -28,7 +65,7 @@ const LoginForm = () => {
         <h2>Ingresar</h2>
         <div class="form-control">
           <label for="username">
-            <FontAwesomeIcon icon={faUser} />
+            <FontAwesomeIcon icon={faUser} id="user-icon" />
             Username
           </label>
           <input
@@ -36,22 +73,26 @@ const LoginForm = () => {
             id="username"
             placeholder="Enter username"
             value={name}
-            onChange={handleChange}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
-          <small>Error message</small>
+          <span>{errorName}</span>
         </div>
         <div class="form-control">
           <label for="password">
-            <FontAwesomeIcon icon={faLock} />
+            <FontAwesomeIcon icon={faLock} id="password-icon" />
             Password
           </label>
           <div>
             <input
-              type={passwordShown ? 'text' : 'password'}
+              type={passwordShown ? "text" : "password"}
               id="password"
               placeholder="Enter password"
               value={password}
-              onChange={handleChange}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
             {passwordShown ? (
               <FontAwesomeIcon icon={faEye} onClick={showHidePassword} />
@@ -59,9 +100,10 @@ const LoginForm = () => {
               <FontAwesomeIcon icon={faEyeSlash} onClick={showHidePassword} />
             )}
           </div>
-          <small>Error message</small>
+          <span>{errorPassword}</span>
         </div>
-        <button type="submit">Submit</button>
+        <span>{errorGral}</span>
+        <button onClick={onSubmit}>Submit</button>
       </form>
     </div>
   );
