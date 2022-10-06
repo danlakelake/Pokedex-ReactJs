@@ -45,13 +45,18 @@ const LoginForm = () => {
       e.preventDefault();
       const res_ApiLogin = await postApiLogin(name, password);
       const res_ApiLogin_code = res_ApiLogin.code;
+      const res_ApiLogin_id = res_ApiLogin.data.permiso_id;
       console.log(res_ApiLogin_code);
+      console.log(res_ApiLogin_id);
 
       //VALIDATION CODE RESPONSES
-      res_ApiLogin_code == 0
-        ? alert("Ingresando a Sistema")
-        : (alert("Datos incorrectos, vuelve a ingresar tus datos"),
-          e.preventDefault());
+
+      if (res_ApiLogin_code == 0) {
+        alert("Ingresando a Sistema");
+      } else {
+        alert("Datos incorrectos, vuelve a ingresar tus datos");
+        e.preventDefault();
+      }
     }
   };
 
