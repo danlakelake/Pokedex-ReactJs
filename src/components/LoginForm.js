@@ -61,8 +61,6 @@ const LoginForm = () => {
   };
 
   const onChange = (e) => {
-    console.log(e.target.name);
-
     //Validation Name
     if (e.target.name === "name") {
       setName(e.target.value);
