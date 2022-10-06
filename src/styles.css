@@ -270,7 +270,7 @@ nav {
 .loginForm-container .form {
   background-color: var(--main-white);
   width: 300px;
-  height: 300px;
+  height: 320px;
   padding: 40px 50px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -283,7 +283,7 @@ nav {
 }
 
 .loginForm-container .form-control {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -373,4 +373,10 @@ nav {
 .loginForm-container .form svg.svg-inline--fa.fa-eye:hover,
 .loginForm-container .form svg.svg-inline--fa.fa-eye-slash:hover {
   color: var(--pokemon-background);
+}
+
+.loginForm-container .error-span {
+  color: red;
+  font-size: 12px;
+  margin-top: 30px;
 }

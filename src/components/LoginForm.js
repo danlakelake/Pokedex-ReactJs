@@ -19,47 +19,75 @@ const LoginForm = () => {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    const input_username = document.getElementById("username");
+    const input_password = document.getElementById("password");
+
+    name.length == 0 ||
+    name == null ||
+    name === "" ||
+    password.length == 0 ||
+    password == null ||
+    password === "" ||
+    input_username.style.border === "2px solid red" ||
+    input_password.style.border === "2px solid red"
+      ? (console.log("no se puede enviar"), e.preventDefault())
+      : (console.log("enviado"),
+        console.log(name),
+        console.log(password),
+        e.preventDefault());
   };
 
-  useEffect(() => {
-    let nameRegex = /^[a-zA-Z]{5,}/i;
-    let input_username = document.getElementById("username");
-    let icon_username = document.getElementById("user-icon");
-
-    let input_password = document.getElementById("password");
-    let icon_password = document.getElementById("password-icon");
+  const onChange = (e) => {
+    console.log(e.target.name);
 
     //Validation Name
-    if (nameRegex.test(name.trim())) {
-      setErrorName("");
-      input_username.style.border = "2px solid lime";
-      icon_username.style.color = "lime";
-    } else if (name.length == 1) {
-      setErrorName("el nombre debe contener mas de 5 caracteres");
-      input_username.style.border = "2px solid red";
-      icon_username.style.color = "red";
-    } else if (name.length == 0 || name == null || name === "") {
-      setErrorName("");
+    if (e.target.name === "name") {
+      setName(e.target.value);
+      const nameRegex = /^[a-zA-Z]{5,}/gi;
+      const input_username = document.getElementById("username");
+      const icon_username = document.getElementById("user-icon");
+
+      e.target.value.length == 0 ||
+      e.target.value == null ||
+      e.target.value === ""
+        ? (setErrorName("El nombre no puede ir vacio"), e.preventDefault())
+        : setErrorName("el nombre debe contener mas de 5 caracteres");
+
+      nameRegex.test(e.target.value.trim())
+        ? (setErrorName(""),
+          (input_username.style.border = "2px solid lime"),
+          (icon_username.style.color = "lime"))
+        : ((input_username.style.border = "2px solid red"),
+          (icon_username.style.color = "red"));
     }
 
     //Validation Password
-    if (nameRegex.test(password.trim())) {
-      setErrorPassword("");
-      input_password.style.border = "2px solid lime";
-      icon_password.style.color = "lime";
-    } else if (password.length == 1) {
-      setErrorPassword("el password debe contener mas de 5 caracteres");
-      input_password.style.border = "2px solid red";
-      icon_password.style.color = "red";
-    } else if (password.length == 0 || password == null || password === "") {
-      setErrorPassword("");
-      input_password.style.border = "2px solid red";
+    if (e.target.name === "password") {
+      setPassword(e.target.value);
+      const passwordRegex =
+        /^(?=^.{6,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])/gi;
+      const input_password = document.getElementById("password");
+      const icon_password = document.getElementById("password-icon");
+
+      e.target.value.length == 0 ||
+      e.target.value == null ||
+      e.target.value === ""
+        ? setErrorPassword("El password no puede ir vacio")
+        : setErrorPassword("el password debe contener mas de 5 caracteres");
+
+      passwordRegex.test(e.target.value.trim())
+        ? (setErrorPassword(""),
+          (input_password.style.border = "2px solid lime"),
+          (icon_password.style.color = "lime"))
+        : ((input_password.style.border = "2px solid red"),
+          (icon_password.style.color = "red"));
     }
-  }, [name, password]);
+  };
+
+  useEffect(() => {}, [name, password]);
 
   return (
-    <div class="loginForm-container">
+    <div class="loginForm-container" id="">
       <form id="form" class="form">
         <h2>Ingresar</h2>
         <div class="form-control">
@@ -72,11 +100,10 @@ const LoginForm = () => {
             id="username"
             placeholder="Enter username"
             value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
+            name="name"
+            onChange={onChange}
           />
-          <span>{errorName}</span>
+          <span className="error-span">{errorName}</span>
         </div>
         <div class="form-control">
           <label for="password">
@@ -89,9 +116,8 @@ const LoginForm = () => {
               id="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              name="password"
+              onChange={onChange}
             />
             {passwordShown ? (
               <FontAwesomeIcon icon={faEye} onClick={showHidePassword} />
@@ -99,7 +125,7 @@ const LoginForm = () => {
               <FontAwesomeIcon icon={faEyeSlash} onClick={showHidePassword} />
             )}
           </div>
-          <span>{errorPassword}</span>
+          <span className="error-span">{errorPassword}</span>
         </div>
         <button onClick={onSubmit}>Submit</button>
       </form>
