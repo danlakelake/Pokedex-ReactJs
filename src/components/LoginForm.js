@@ -7,34 +7,45 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { postApiLogin } from "../api";
+
 const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
+  const [apiKey, setApiKey] = useState("");
+  const [codeApi, setCodeApi] = useState("");
 
   const showHidePassword = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     const input_username = document.getElementById("username");
     const input_password = document.getElementById("password");
 
-    name.length == 0 ||
-    name == null ||
-    name === "" ||
-    password.length == 0 ||
-    password == null ||
-    password === "" ||
-    input_username.style.border === "2px solid red" ||
-    input_password.style.border === "2px solid red"
-      ? (console.log("no se puede enviar"), e.preventDefault())
-      : (console.log("enviado"),
-        console.log(name),
-        console.log(password),
-        e.preventDefault());
+    if (
+      name.length == 0 ||
+      name == null ||
+      name === "" ||
+      password.length == 0 ||
+      password == null ||
+      password === "" ||
+      input_username.style.border === "2px solid red" ||
+      input_password.style.border === "2px solid red"
+    ) {
+      console.log("no se puede enviar");
+      e.preventDefault();
+    } else {
+      console.log("enviado");
+      console.log(name);
+      console.log(password);
+      e.preventDefault();
+      const apiLogin = await postApiLogin(name, password);
+      console.log(apiLogin.code);
+    }
   };
 
   const onChange = (e) => {
@@ -64,8 +75,7 @@ const LoginForm = () => {
     //Validation Password
     if (e.target.name === "password") {
       setPassword(e.target.value);
-      const passwordRegex =
-        /^(?=^.{6,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])/gi;
+      const passwordRegex = /^[a-zA-Z]{5,}/gi;
       const input_password = document.getElementById("password");
       const icon_password = document.getElementById("password-icon");
 

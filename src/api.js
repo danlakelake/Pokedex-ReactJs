@@ -30,5 +30,29 @@ export const getPokemonResources = async (pokemon) => {
     const response = await fetch(url);
     const data = await response.json();
     return data;
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postApiLogin = async (name, password) => {
+  try {
+    const url = "https://pruebasmorpheus.com:16070/usuario/login/oficina";
+    const response = await fetch(url, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      //make sure to serialize your JSON body
+      body: JSON.stringify({
+        nick: name,
+        pass: password,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 };
