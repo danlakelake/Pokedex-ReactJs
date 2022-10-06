@@ -43,8 +43,15 @@ const LoginForm = () => {
       console.log(name);
       console.log(password);
       e.preventDefault();
-      const apiLogin = await postApiLogin(name, password);
-      console.log(apiLogin.code);
+      const res_ApiLogin = await postApiLogin(name, password);
+      const res_ApiLogin_code = res_ApiLogin.code;
+      console.log(res_ApiLogin_code);
+
+      //VALIDATION CODE RESPONSES
+      res_ApiLogin_code == 0
+        ? alert("Ingresando a Sistema")
+        : (alert("Datos incorrectos, vuelve a ingresar tus datos"),
+          e.preventDefault());
     }
   };
 
@@ -62,7 +69,7 @@ const LoginForm = () => {
       e.target.value == null ||
       e.target.value === ""
         ? (setErrorName("El nombre no puede ir vacio"), e.preventDefault())
-        : setErrorName("el nombre debe contener mas de 5 caracteres");
+        : setErrorName("el nombre debe contener al menos 5 caracteres");
 
       nameRegex.test(e.target.value.trim())
         ? (setErrorName(""),
@@ -83,7 +90,7 @@ const LoginForm = () => {
       e.target.value == null ||
       e.target.value === ""
         ? setErrorPassword("El password no puede ir vacio")
-        : setErrorPassword("el password debe contener mas de 5 caracteres");
+        : setErrorPassword("el password debe contener al menos 5 caracteres");
 
       passwordRegex.test(e.target.value.trim())
         ? (setErrorPassword(""),
