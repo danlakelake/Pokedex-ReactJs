@@ -6,8 +6,8 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
-
-import { postApiLogin } from "../api";
+import ModalInfo from "./Modal";
+import { postApiLogin, postAuthLogin } from "../api";
 
 const LoginForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -15,8 +15,11 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
-  const [apiKey, setApiKey] = useState("");
-  const [codeApi, setCodeApi] = useState("");
+  const [codeResponseApi, setCodeResponseApi] = useState("");
+  const [messageResponseApi, setMessageResponseApi] = useState("");
+  const [keyResponseApi, setKeyResponseApi] = useState("");
+  const [userIdApi, setUserIdApi] = useState("");
+  const [modal, setModal] = useState(false);
 
   const showHidePassword = () => {
     setPasswordShown(!passwordShown);
@@ -39,22 +42,22 @@ const LoginForm = () => {
       console.log("no se puede enviar");
       e.preventDefault();
     } else {
-      console.log("enviado");
-      console.log(name);
-      console.log(password);
       e.preventDefault();
-      const res_ApiLogin = await postApiLogin(name, password);
-      const res_ApiLogin_code = res_ApiLogin.code;
-      const res_ApiLogin_id = res_ApiLogin.data.permiso_id;
-      console.log(res_ApiLogin_code);
-      console.log(res_ApiLogin_id);
+      const res_ApiLogin = await postApiLogin(name.trim(), password.trim());
+      console.log(res_ApiLogin);
+      console.log(res_ApiLogin.data.key);
+      setCodeResponseApi(res_ApiLogin.code);
+      setMessageResponseApi(res_ApiLogin.message);
+      setKeyResponseApi(res_ApiLogin.data.key);
+      setUserIdApi(res_ApiLogin.data.usuario_id);
+
+      console.log(await postAuthLogin(userIdApi, keyResponseApi));
 
       //VALIDATION CODE RESPONSES
-
-      if (res_ApiLogin_code == 0) {
-        alert("Ingresando a Sistema");
+      if (codeResponseApi === 0) {
+        setModal(true);
       } else {
-        alert("Datos incorrectos, vuelve a ingresar tus datos");
+        setModal(true);
         e.preventDefault();
       }
     }
@@ -104,11 +107,25 @@ const LoginForm = () => {
     }
   };
 
-  useEffect(() => {}, [name, password]);
+  useEffect(() => {}, [
+    name,
+    password,
+    codeResponseApi,
+    keyResponseApi,
+    userIdApi,
+  ]);
 
   return (
-    <div class="loginForm-container" id="">
-      <form id="form" class="form">
+    <div class="loginForm-container">
+      {modal === true ? (
+        <ModalInfo
+          message={"Mensaje de success"}
+          codeResponseApi={codeResponseApi}
+          setModal={setModal}
+          messageResponseApi={messageResponseApi}
+        />
+      ) : null}
+      <form id="form" className="form">
         <h2>Ingresar</h2>
         <div class="form-control">
           <label for="username">
@@ -147,7 +164,9 @@ const LoginForm = () => {
           </div>
           <span className="error-span">{errorPassword}</span>
         </div>
-        <button onClick={onSubmit}>Submit</button>
+        <button type="button" onClick={onSubmit}>
+          Submit
+        </button>
       </form>
     </div>
   );
