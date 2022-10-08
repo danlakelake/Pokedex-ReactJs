@@ -44,14 +44,19 @@ const LoginForm = () => {
     } else {
       e.preventDefault();
       const res_ApiLogin = await postApiLogin(name.trim(), password.trim());
-      console.log(res_ApiLogin);
-      console.log(res_ApiLogin.data.key);
+      // console.log(res_ApiLogin.data.usuario_id);
+      // console.log(res_ApiLogin.data.key);
       setCodeResponseApi(res_ApiLogin.code);
       setMessageResponseApi(res_ApiLogin.message);
       setKeyResponseApi(res_ApiLogin.data.key);
       setUserIdApi(res_ApiLogin.data.usuario_id);
+      console.log(res_ApiLogin);
 
-      console.log(await postAuthLogin(userIdApi, keyResponseApi));
+      const resApi = await postAuthLogin(
+        res_ApiLogin.data.usuario_id,
+        res_ApiLogin.data.key
+      );
+      console.log(resApi);
 
       //VALIDATION CODE RESPONSES
       if (codeResponseApi === 0) {

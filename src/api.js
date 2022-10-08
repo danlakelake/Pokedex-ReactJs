@@ -51,6 +51,7 @@ export const postApiLogin = async (name, password) => {
       }),
     });
     const data = await response.json();
+
     return data;
   } catch (err) {
     console.log(err);
@@ -63,13 +64,12 @@ export const postAuthLogin = async (user_id, key) => {
     const response = await fetch(url, {
       method: "post",
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
         id: user_id,
       },
       //make sure to serialize your JSON body
       body: JSON.stringify({
-        Auth: key,
+        key: key,
       }),
     });
     const data = await response.json();
