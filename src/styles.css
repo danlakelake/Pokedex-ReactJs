@@ -270,7 +270,7 @@ nav {
 }
 
 .loginForm-container .form {
-  background-color: var(--main-white);
+  background-color: #ffffffde;
   width: 300px;
   height: 320px;
   padding: 40px 50px;
