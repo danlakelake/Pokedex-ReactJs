@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -121,7 +122,7 @@ const LoginForm = () => {
   ]);
 
   return (
-    <div class="loginForm-container">
+    <div className="loginForm-container">
       {modal === true ? (
         <ModalInfo
           message={"Mensaje de success"}
@@ -132,7 +133,7 @@ const LoginForm = () => {
       ) : null}
       <form id="form" className="form">
         <h2>Ingresar</h2>
-        <div class="form-control">
+        <div className="form-control">
           <label for="username">
             <FontAwesomeIcon icon={faUser} id="user-icon" />
             Username
@@ -147,7 +148,7 @@ const LoginForm = () => {
           />
           <span className="error-span">{errorName}</span>
         </div>
-        <div class="form-control">
+        <div className="form-control">
           <label for="password">
             <FontAwesomeIcon icon={faLock} id="password-icon" />
             Password
