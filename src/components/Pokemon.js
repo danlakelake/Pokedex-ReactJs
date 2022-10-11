@@ -11,11 +11,9 @@ const Pokemon = (props) => {
   const [pokemon_Weight, setPokemonWeight] = useState("");
   const [pokemon_Ability, setPokemonAbility] = useState("");
   const [pokemon_Desc, setPokemonDesc] = useState("");
-
   const { pokemon } = props;
   const { favoritePokemons, updateFavoritePokemons } =
     useContext(favoriteContext);
-
   const redHeart = "❤️";
   const blackHeart = "🖤";
   const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart;
@@ -44,6 +42,8 @@ const Pokemon = (props) => {
     e.stopPropagation();
     setModal(true);
     getApiDesc();
+    // const childWindow = window.open("", "modal");
+    // modal === true ? childWindow.document.open(<PokemonInfo />) : null;
   };
 
   const clickHeart = (e) => {
@@ -87,6 +87,7 @@ const Pokemon = (props) => {
           <button onClick={clickHeart} className="pokemon-heart-btn">
             <div className="pokemon-favorite">{heart}</div>
           </button>
+          <button>Mostrar Modal</button>
         </div>
       </div>
       <div></div>
