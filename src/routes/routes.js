@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import App from "../App";
+import PokemonInfo from "../components/PokemonPopUp";
 
 const RoutesWindows = () => {
   function CreateRoutes() {
@@ -8,7 +9,7 @@ const RoutesWindows = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/info_pokemon" element={<p>Info pokemon</p>} />
+            <Route path="/info_pokemon" element={<PokemonInfo />} />
           </Routes>
         </BrowserRouter>
       );
@@ -16,8 +17,8 @@ const RoutesWindows = () => {
       return (
         <HashRouter>
           <Routes>
-            <Route path="/" element={<p>index</p>} />
-            <Route path="/info_pokemon" element={<p>Info pokemon</p>} />
+            <Route path="/" element={<App />} />
+            <Route path="/info_pokemon" element={<PokemonInfo />} />
           </Routes>
         </HashRouter>
       );

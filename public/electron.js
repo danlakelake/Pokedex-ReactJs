@@ -1,7 +1,4 @@
-const electron = require("electron");
-const app = electron.app;
-const Menu = electron.Menu;
-const BrowserWindow = electron.BrowserWindow;
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
 
@@ -36,14 +33,14 @@ function createWindow() {
   });
 
   //If it's MacOS, don't show the default menu, for this we add the APP name.
-  if (process.platform == "darwin") {
-    const mainMenu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(mainMenu);
-    mainMenuTemplate.unshift({ label: "Electron" });
-  } else {
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
-  }
+  // if (process.platform == "darwin") {
+  //   const mainMenu = Menu.buildFromTemplate(template);
+  //   Menu.setApplicationMenu(mainMenu);
+  //   mainMenuTemplate.unshift({ label: "Electron" });
+  // } else {
+  //   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  //   Menu.setApplicationMenu(mainMenu);
+  // }
 
   //Show main window
   mainWindow.loadURL(
@@ -58,10 +55,17 @@ function createWindow() {
         : `file://${path.join(__dirname, "../build/index.html#info_pokemon")}`
     );
 
+  //Close child window
+  childWindow.on("close", (e) => {
+    e.preventDefault();
+    childWindow.hide();
+  });
+
   //Open developer tools
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+  //Close main window
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
@@ -75,6 +79,12 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+ipcMain.on("synchronous-message", (e, arg) => {
+  childWindow.webContents.send("send-info", arg);
+  childWindow.show();
+});
+
 const mainMenuTemplate = [];
 const template = [
   {

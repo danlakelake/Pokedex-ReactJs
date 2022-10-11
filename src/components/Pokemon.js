@@ -3,6 +3,9 @@ import favoriteContext from "../contexts/favoriteContext";
 import PokemonInfo from "../components/PokemonPopUp";
 import { getPokemonResources } from "../api";
 
+const electron = window.require("electron");
+const ipcRenderer = electron.ipcRenderer;
+
 const Pokemon = (props) => {
   const [modal, setModal] = useState(false);
   const [pokemon_Name, setPokemonName] = useState("");
@@ -38,12 +41,14 @@ const Pokemon = (props) => {
     }
   };
 
+  const renderIPC = () => {
+    ipcRenderer.send("synchronous-message", pokemon);
+  };
+
   const showModal = (e) => {
     e.stopPropagation();
     setModal(true);
     getApiDesc();
-    // const childWindow = window.open("", "modal");
-    // modal === true ? childWindow.document.open(<PokemonInfo />) : null;
   };
 
   const clickHeart = (e) => {
@@ -87,7 +92,7 @@ const Pokemon = (props) => {
           <button onClick={clickHeart} className="pokemon-heart-btn">
             <div className="pokemon-favorite">{heart}</div>
           </button>
-          <button>Mostrar Modal</button>
+          <button onClick={renderIPC}>Mostrar Modal</button>
         </div>
       </div>
       <div></div>
