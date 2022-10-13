@@ -45,24 +45,26 @@ const PokemonInfo = () => {
         <div className="pokemon-data">
           <div>
             <span>
-              <b>Nombre:</b> {dataPokemon.name}
+              <b>Nombre: </b>
+              {dataPokemon.name}
             </span>
           </div>
           <div>
             <span>
-              <b>Peso:</b> {dataPokemon.weight} Kg
+              <b>Peso: </b>
+              {dataPokemon.weight} Kg
             </span>
           </div>
           <div>
             <span>
-              <b>Habilidad:</b>
+              <b>Habilidad: </b>
             </span>
             {dataPokemon.ability.map((item, key) => {
               return <span key={key}>{item.ability.name},</span>;
             })}
           </div>
           <div>
-            <b>Descripción:</b>
+            <b>Descripción: </b>
             {dataPokemon.desc}
           </div>
         </div>
