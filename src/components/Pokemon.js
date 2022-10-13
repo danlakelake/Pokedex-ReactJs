@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import favoriteContext from "../contexts/favoriteContext";
-// import PokemonInfo from "../components/PokemonPopUp";
 
 const electron = window.require("electron");
 const ipcRenderer = electron.ipcRenderer;
@@ -9,8 +8,6 @@ const Pokemon = (props) => {
   const [pokemon_Name, setPokemonName] = useState("");
   const [pokemon_Id, setPokemonId] = useState("");
   const [pokemon_Img, setPokemonImg] = useState("");
-  const [pokemon_Weight, setPokemonWeight] = useState("");
-  const [pokemon_Ability, setPokemonAbility] = useState("");
   const { pokemon } = props;
   const { favoritePokemons, updateFavoritePokemons } =
     useContext(favoriteContext);
@@ -22,8 +19,6 @@ const Pokemon = (props) => {
     setPokemonName(pokemon.name);
     setPokemonId(pokemon.id);
     setPokemonImg(pokemon.sprites.front_default);
-    setPokemonWeight(pokemon.weight);
-    setPokemonAbility(pokemon.abilities);
   }, [pokemon]);
 
   const renderIPC = () => {
