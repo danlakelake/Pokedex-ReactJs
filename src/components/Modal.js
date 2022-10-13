@@ -10,7 +10,6 @@ const ModalInfo = (props) => {
   const [iconCheck, setIconCheck] = useState("");
 
   const hideModal = () => {
-    console.log("hide modal");
     setModal(false);
   };
 

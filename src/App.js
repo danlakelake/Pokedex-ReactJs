@@ -6,8 +6,6 @@ import {
   faLock,
   faEye,
   faEyeSlash,
-  faWindowRestore,
-  faWindowMinimize,
 } from "@fortawesome/free-solid-svg-icons";
 import ModalInfo from "./components/Modal";
 import { postApiLogin, postAuthLogin } from "./api";
@@ -43,7 +41,6 @@ export default function App() {
       input_username.style.border === "2px solid red" ||
       input_password.style.border === "2px solid red"
     ) {
-      window.open("no se puede enviar");
       console.log("no se puede enviar");
       e.preventDefault();
     } else {
@@ -64,8 +61,7 @@ export default function App() {
 
       //VALIDATION CODE RESPONSES
       if (codeResponseApi === 0) {
-        const childWindow = window.open("", "modal");
-        childWindow.document.write("<h1>Hello</h1>");
+        setModal(true);
       } else {
         setModal(true);
         e.preventDefault();
@@ -181,7 +177,7 @@ export default function App() {
               </div>
               <span className="error-span">{errorPassword}</span>
             </div>
-            <button type="button" onClick={onSubmit}>
+            <button type="submit" onClick={onSubmit}>
               Submit
             </button>
           </form>

@@ -21,10 +21,8 @@ function createWindow() {
 
   //Child window properties
   childWindow = new BrowserWindow({
-    minWidth: 1200,
-    minHeight: 500,
-    width: 1200,
-    height: 700,
+    width: 500,
+    height: 600,
     show: false,
     webPreferences: {
       nodeIntegration: true,
@@ -32,7 +30,7 @@ function createWindow() {
     },
   });
 
-  //If it's MacOS, don't show the default menu, for this we add the APP name.
+  // If it's MacOS, don't show the default menu, for this we add the APP name.
   // if (process.platform == "darwin") {
   //   const mainMenu = Menu.buildFromTemplate(template);
   //   Menu.setApplicationMenu(mainMenu);
@@ -55,18 +53,19 @@ function createWindow() {
         : `file://${path.join(__dirname, "../build/index.html#info_pokemon")}`
     );
 
+  //Open developer tools
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
+
+  //Close main window
+  mainWindow.on("closed", () => (mainWindow = null));
+
   //Close child window
   childWindow.on("close", (e) => {
     e.preventDefault();
     childWindow.hide();
   });
-
-  //Open developer tools
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
-  //Close main window
-  mainWindow.on("closed", () => (mainWindow = null));
 }
 
 //Open window when electron is ready
@@ -80,7 +79,8 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.on("synchronous-message", (e, arg) => {
+ipcMain.on("openChildWindow", (e, arg) => {
+  e.preventDefault();
   childWindow.webContents.send("send-info", arg);
   childWindow.show();
 });

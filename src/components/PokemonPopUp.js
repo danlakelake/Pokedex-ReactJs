@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { getPokemonResources } from "../api";
 
 const electron = window.require("electron");
 const ipcRenderer = electron.ipcRenderer;
 
-const PokemonInfo = (props) => {
-  const {
-    pokemonName,
-    pokemonImg,
-    pokemonWeight,
-    pokemonAbility,
-    pokemonDesc,
-    setModal,
-  } = props;
+const PokemonInfo = () => {
+  const [dataPokemon, setDataPokemon] = useState({
+    name: "",
+    img: "",
+    weight: "",
+    ability: [],
+    desc: "",
+  });
 
-  const [dataPokemon, setDataPokemon] = useState({ name: "", img: "" });
-
-  useEffect(() => {
-    ipcRenderer.on("send-info", (e, arg) => {
-      console.log(arg);
+  const getApiDesc = async (id, arg) => {
+    try {
+      const data = await getPokemonResources(id);
+      console.log(data.effect_entries[0].effect);
       setDataPokemon({
         name: arg.name,
         img: arg.sprites.front_default,
         weight: arg.weight,
+        ability: arg.abilities,
+        desc: data.effect_entries[0].effect,
       });
+    } catch (error) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    ipcRenderer.on("send-info", (e, arg) => {
+      getApiDesc(arg.id, arg);
     });
   }, []);
 
-  const closeModal = (e) => {
-    e.stopPropagation();
-    setModal(false);
-  };
-
   return (
-    <div className="pokemon-modalInfo" onClick={closeModal}>
-      <div className="pokemon-cardModal">
+    <div className="pokemon-modalInfo">
+      <div className="pokemon-cardInfo">
         <h2 className="pokemon-title">{dataPokemon.name} Info</h2>
         <div className="pokemon-modal-img">
           <img src={dataPokemon.img} alt="img-pokemon" />
@@ -49,18 +53,18 @@ const PokemonInfo = (props) => {
               <b>Peso:</b> {dataPokemon.weight} Kg
             </span>
           </div>
-          {/* <div>
+          <div>
             <span>
               <b>Habilidad:</b>
             </span>
-            {pokemonAbility.map((item) => {
-              return <span key={item.ability.name}> {item.ability.name},</span>;
+            {dataPokemon.ability.map((item, key) => {
+              return <span key={key}>{item.ability.name},</span>;
             })}
-          </div> */}
-          <div className="pokemon-des-title">
-            <b>Descripción:</b>
           </div>
-          {/* <div className="pokemon-desc">{pokemonDesc}</div> */}
+          <div>
+            <b>Descripción:</b>
+            {dataPokemon.desc}
+          </div>
         </div>
       </div>
     </div>

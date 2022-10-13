@@ -1,19 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import favoriteContext from "../contexts/favoriteContext";
-import PokemonInfo from "../components/PokemonPopUp";
-import { getPokemonResources } from "../api";
+// import PokemonInfo from "../components/PokemonPopUp";
 
 const electron = window.require("electron");
 const ipcRenderer = electron.ipcRenderer;
 
 const Pokemon = (props) => {
-  const [modal, setModal] = useState(false);
   const [pokemon_Name, setPokemonName] = useState("");
   const [pokemon_Id, setPokemonId] = useState("");
   const [pokemon_Img, setPokemonImg] = useState("");
   const [pokemon_Weight, setPokemonWeight] = useState("");
   const [pokemon_Ability, setPokemonAbility] = useState("");
-  const [pokemon_Desc, setPokemonDesc] = useState("");
   const { pokemon } = props;
   const { favoritePokemons, updateFavoritePokemons } =
     useContext(favoriteContext);
@@ -29,26 +26,8 @@ const Pokemon = (props) => {
     setPokemonAbility(pokemon.abilities);
   }, [pokemon]);
 
-  const getApiDesc = async () => {
-    try {
-      const data = await getPokemonResources(pokemon_Id);
-      data.effect_entries.map((res) => {
-        const response_desc = res.effect;
-        setPokemonDesc(response_desc);
-      });
-    } catch (error) {
-      console.log(err);
-    }
-  };
-
   const renderIPC = () => {
-    ipcRenderer.send("synchronous-message", pokemon);
-  };
-
-  const showModal = (e) => {
-    e.stopPropagation();
-    setModal(true);
-    getApiDesc();
+    ipcRenderer.send("openChildWindow", pokemon);
   };
 
   const clickHeart = (e) => {
@@ -60,17 +39,7 @@ const Pokemon = (props) => {
   };
 
   return (
-    <div onClick={showModal} className="pokemon-card">
-      {modal === true ? (
-        <PokemonInfo
-          pokemonName={pokemon_Name}
-          pokemonImg={pokemon_Img}
-          pokemonWeight={pokemon_Weight}
-          pokemonAbility={pokemon_Ability}
-          pokemonDesc={pokemon_Desc}
-          setModal={setModal}
-        />
-      ) : null}
+    <div className="pokemon-card" onClick={renderIPC}>
       <div className="pokemon-img-container">
         <img src={pokemon_Img} alt={pokemon_Name} className="pokemon-img" />
       </div>
@@ -92,7 +61,6 @@ const Pokemon = (props) => {
           <button onClick={clickHeart} className="pokemon-heart-btn">
             <div className="pokemon-favorite">{heart}</div>
           </button>
-          <button onClick={renderIPC}>Mostrar Modal</button>
         </div>
       </div>
       <div></div>
